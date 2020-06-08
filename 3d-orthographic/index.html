@@ -10,6 +10,7 @@
   <canvas id="canvas"></canvas>
   <div id="uiContainer">
     <div id="ui">
+      <div id="fieldOfView"></div>
       <div id="x"></div>
       <div id="y"></div>
       <div id="z"></div>
@@ -27,13 +28,19 @@
   attribute vec4 a_color;
   
   uniform mat4 u_matrix;
+  uniform float u_fudgeFactor;
   
   varying vec4 v_color;
   
   void main() {
     // Multiply the position by the matrix.
-    gl_Position = u_matrix * a_position;
+    // vec4 position = u_matrix * a_position;
+
+    // float zToDivideBy = 1.0 + position.z * u_fudgeFactor;
   
+    // gl_Position = vec4(position.xyz, zToDivideBy);
+    gl_Position = u_matrix * a_position;
+
     // Pass the color to the fragment shader.
     v_color = a_color;
   }
@@ -55,8 +62,8 @@
   and https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
   for webgl-utils, m3, m4, and webgl-lessons-ui.
   -->
-  <script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
-  <script src="https://webglfundamentals.org/webgl/resources/webgl-lessons-ui.js"></script>
+  <script src="../utils.js"></script>
+  <script src="../ui.js"></script>
 </body>
 <script src="./index.js"></script>
 </html>
