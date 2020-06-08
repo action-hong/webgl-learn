@@ -138,7 +138,8 @@ function main() {
 
     gl.enableVertexAttribArray(colorLocation)
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer)
-    gl.vertexAttribPointer(colorLocation, 3, gl.FLOAT, false, 0, 0)
+    // 单位数据吴富奥 8位整数, 标准化数据(0, 255) -> (0, 1)
+    gl.vertexAttribPointer(colorLocation, 3, gl.UNSIGNED_BYTE, true, 0, 0)
 
     // Compute the matrices
     let matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
