@@ -151,6 +151,20 @@ var m4 = {
     var f = Math.tan(Math.PI * 0.5 - 0.5 * fieldOfViewInRadians);
     var rangeInv = 1.0 / (near - far);
  
+    // [
+    //  x * f / aspect,
+    //  y * f,
+    //  z * (near + far) * rangeInv + near* far * rangeInv * 2,
+    //  -z
+    // ]
+    // 由于处理的时候, x, y, z会除w, 即除深度z
+    // [
+    //  -x * f / aspect / z,
+    //  -y * f / z,
+    //  -(near + far) * rangeInv - near * far * rangeInv * 2 / z,
+    //  -z
+    // ]
+    // z = -near / -far 代入 得到对应 [-1, 1] 刚好对应上裁剪面积
     return [
       f / aspect, 0, 0, 0,
       0, f, 0, 0,
